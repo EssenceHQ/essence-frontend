@@ -6,7 +6,7 @@ import noVideo from "../../assets/Icons/icons8-no-video-96.png";
 import showVideo from "../../assets/Icons/icons8-video-call-90.png";
 import DropDownMenu from "../UI/DropDownMenu";
 
-const Input = ({ showMenu, menuHandler }) => {
+const Input = () => {
   const hoursRef = useRef(0);
   const minutesRef = useRef(0);
   const hours = useRef(0);
@@ -14,7 +14,12 @@ const Input = ({ showMenu, menuHandler }) => {
 
   const [timerVisibility, setTimerVisibility] = useState(false);
   const [camra, setCamra] = useState(true);
-
+  const [showMenu, setShowMenu] = useState(false);
+  const menuHandler = () => {
+    setShowMenu((state) => {
+      return !state;
+    });
+  };
   const startTimer = () => {
     setTimerVisibility(true);
   };
@@ -92,26 +97,34 @@ const Input = ({ showMenu, menuHandler }) => {
           </form>
         )}
         {!timerVisibility && (
-          <div className="relative">
-            <button
-              onClick={menuHandler}
-              className="text-3xl  bg-white px-3 py-3 rounded-lg"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                height="24"
-                width="24"
+          <div>
+            <div className="relative">
+              <button
+                onClick={menuHandler}
+                className="text-3xl  bg-white px-3 py-3 rounded-lg"
               >
-                <title>timer-edit</title>
-                <path d="M15 3H9V1H15V3M19.39 10.74L11 19.13V21.94C6.5 21.44 3 17.63 3 13C3 8.03 7.03 4 12 4C14.12 4 16.07 4.74 17.62 6L19.04 4.56C19.55 5 20 5.46 20.45 5.97L19.03 7.39C19.67 8.19 20.17 9.11 20.5 10.1C20.1 10.21 19.71 10.42 19.39 10.74M13 7H11V14H13V7M13 19.96V22H15.04L21.17 15.88L19.13 13.83L13 19.96M22.85 13.47L21.53 12.15C21.33 11.95 21 11.95 20.81 12.15L19.83 13.13L21.87 15.17L22.85 14.19C23.05 14 23.05 13.67 22.85 13.47Z" />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  height="24"
+                  width="24"
+                >
+                  <title>timer-edit</title>
+                  <path d="M15 3H9V1H15V3M19.39 10.74L11 19.13V21.94C6.5 21.44 3 17.63 3 13C3 8.03 7.03 4 12 4C14.12 4 16.07 4.74 17.62 6L19.04 4.56C19.55 5 20 5.46 20.45 5.97L19.03 7.39C19.67 8.19 20.17 9.11 20.5 10.1C20.1 10.21 19.71 10.42 19.39 10.74M13 7H11V14H13V7M13 19.96V22H15.04L21.17 15.88L19.13 13.83L13 19.96M22.85 13.47L21.53 12.15C21.33 11.95 21 11.95 20.81 12.15L19.83 13.13L21.87 15.17L22.85 14.19C23.05 14 23.05 13.67 22.85 13.47Z" />
+                </svg>
+              </button>
+              {showMenu && (
+                <DropDownMenu
+                  timeChangeHandler={timeChangeHandler}
+                  menuHandler={menuHandler}
+                ></DropDownMenu>
+              )}
+            </div>
             {showMenu && (
-              <DropDownMenu
-                timeChangeHandler={timeChangeHandler}
-                menuHandler={menuHandler}
-              ></DropDownMenu>
+              <div
+                className="absolute w-full h-full top-0 left-0 z-20  "
+                onClick={menuHandler}
+              ></div>
             )}
           </div>
         )}
