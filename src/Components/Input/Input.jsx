@@ -44,11 +44,14 @@ const Input = () => {
     e.preventDefault();
     hours.current = hoursRef.current.value;
     minutes.current = minutesRef.current.value;
-    if (hours > 24) {
+    if (hours.current > 24) {
       alert("Please enter the hours less than or equal to 24 hours");
       return;
-    } else if (minutes >= 60) {
+    } else if (minutes.current >= 60) {
       alert("Please enter the valid minutes");
+      return;
+    } else if (!minutes.current && !hours.current) {
+      alert("Please enter some values");
       return;
     }
     endTimer().then(() => {
