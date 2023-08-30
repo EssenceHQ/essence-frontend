@@ -2,11 +2,12 @@
 import * as tf from "@tensorflow/tfjs";
 import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 const TensorFlow = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-
+  const interValClearingRef = useRef(null);
+  console.log("tensorflow ran");
   const runPosnet = async () => {
     const net = await posenet.load({
       inputResolution: { width: 640, height: 480 },
@@ -14,7 +15,7 @@ const TensorFlow = () => {
     });
 
     //setInterval
-    setInterval(() => {
+    interValClearingRef.current = setInterval(() => {
       detect(net);
     }, 20000);
   };
@@ -39,6 +40,10 @@ const TensorFlow = () => {
   }
   useEffect(() => {
     runPosnet();
+
+    return () => {
+      clearInterval(interValClearingRef.current);
+    };
   }, []);
   return (
     <div>
@@ -74,4 +79,4 @@ const TensorFlow = () => {
   );
 };
 
-export default TensorFlow;
+export const MemorizedTensorFLow = React.memo(TensorFlow);

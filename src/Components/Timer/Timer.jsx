@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useReducer, useRef, useState } from "react";
-import TensorFlow from "../TensorFlow/TensorFlow";
+import { MemorizedTensorFLow } from "../TensorFlow/TensorFlow";
 import Button from "../UI/Button";
 
 const timeReducer = (state, action) => {
@@ -70,7 +70,7 @@ const Timer = ({ hour, minute, endTimer, camra }) => {
           onClick={pauseHandler}
         ></Button>
       </div>
-      {camra && !pause && <TensorFlow></TensorFlow>}
+      {camra && !pause && <MemorizedTensorFLow></MemorizedTensorFLow>}
     </div>
   );
 };
