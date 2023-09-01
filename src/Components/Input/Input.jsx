@@ -1,10 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 import Timer from "../Timer/Timer";
-import Button from "../UI/Button";
-import noVideo from "../../assets/Icons/icons8-no-video-96.png";
-import showVideo from "../../assets/Icons/icons8-video-call-90.png";
+import AccessStart from "../UI/AccessStart";
+import AccessButtons from "../UI/AccessButtons";
+import noVideo from "../../assets/Icons/no-camera.png";
+import showVideo from "../../assets/Icons/camera.png";
 import DropDownMenu from "../UI/DropDownMenu";
+import StartIcon from "../../assets/Icons/start.png";
+import ResetIcon from "../../assets/Icons/reset.png";
+import ResumeIcon from "../../assets/Icons/resume.png";
+import PauseIcon from "../../assets/Icons/pause.png";
 
 const Input = () => {
   const hoursRef = useRef(0);
@@ -14,6 +19,14 @@ const Input = () => {
 
   const [timerVisibility, setTimerVisibility] = useState(false);
   const [camra, setCamra] = useState(true);
+  const [pause, setPause] = useState(false);
+
+  const pauseHandler = () => {
+    setPause((state) => {
+      return !state;
+    });
+  };
+
   const [showMenu, setShowMenu] = useState(false);
   const menuHandler = () => {
     setShowMenu((state) => {
@@ -42,6 +55,8 @@ const Input = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
+  };
+  const startButtonHandler = () => {
     hours.current = hoursRef.current.value;
     minutes.current = minutesRef.current.value;
     if (hours.current > 24) {
@@ -59,99 +74,148 @@ const Input = () => {
     });
   };
 
+  // #021420
+
   const timeChangeHandler = (selectedTime) => {
     const time = selectedTime;
 
     if (+time >= 60) {
-      hoursRef.current.value = Math.floor(+time / 60);
-      minutesRef.current.value = +time % 60;
+      hoursRef.current.value =
+        Math.floor(+time / 60) < 10
+          ? "0" + Math.floor(+time / 60)
+          : Math.floor(+time / 60);
+      minutesRef.current.value =
+        +time % 60 < 10 ? "0" + (+time % 60) : +time % 60;
     } else {
-      hoursRef.current.value = 0;
-      minutesRef.current.value = +time;
+      hoursRef.current.value = "00";
+      minutesRef.current.value = +time < 10 ? "0" + +time : +time;
     }
   };
   useEffect(() => {
-    hoursRef.current.value = 0;
+    hoursRef.current.value = "00";
     minutesRef.current.value = 10;
   }, []);
   return (
-    <div className="flex flex-col gap-3 ">
+    <div className="flex flex-col ">
       <div className="flex">
-        {!timerVisibility && (
-          <form
-            className="flex flex-col items-center gap-8"
-            onSubmit={submitHandler}
-          >
-            <div className="flex gap-3">
-              <input
-                ref={hoursRef}
-                className="text-3xl py-4 rounded-lg "
-                placeholder="hours"
-              ></input>
-              <input
-                ref={minutesRef}
-                className="text-3xl py-4 rounded-lg"
-                placeholder="minutes"
-              ></input>
-            </div>
-            <div>
-              <Button text="Start"></Button>
-            </div>
-          </form>
-        )}
-        {!timerVisibility && (
-          <div>
-            <div className="relative">
-              <button
-                onClick={menuHandler}
-                className="text-3xl  bg-white px-3 py-3 rounded-lg"
+        <div className="form_container relative">
+          {!timerVisibility && (
+            <form
+              className="flex flex-col justify-center items-center"
+              onSubmit={submitHandler}
+            >
+              <div className="time_container flex  justify-center items-center  bg-[#00000093] w-x h-x rounded-round z-10 ">
+                <div className="flex gap-3">
+                  <input
+                    ref={hoursRef}
+                    className="text-9xl bg-transparent outline-bgl  outline-4 text-white font-la text-center rounded-lg w-40 focus:outline"
+                    placeholder="00"
+                  ></input>
+                  <pre className="text-[8rem] text-bgl">:</pre>
+                  <input
+                    ref={minutesRef}
+                    className="text-9xl bg-transparent outline-bgl  outline-4 text-white font-la text-center rounded-lg w-40 focus:outline"
+                    placeholder="00"
+                  ></input>
+                </div>
+              </div>
+              <div className="flex items-center justify-center">
+                {/* <Button text="Start"></Button> */}
+
+                {/* <div
+                onClick={camraHandler}
+                className="text-slate-50 text-4xl border border-bgl bg-bgl px-4 py-2 rounded-lg"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  height="24"
-                  width="24"
+                <img className={`h-16`} src={camra ? showVideo : noVideo}></img>
+              </div> */}
+              </div>
+            </form>
+          )}
+          {!timerVisibility && (
+            <div>
+              <div className="absolute top-20 right-10 z-20">
+                <button
+                  onClick={menuHandler}
+                  className="text-3xl border-l-4 border-b-4 border-bgl  bg-white px-3 py-3 rounded-lg"
                 >
-                  <title>timer-edit</title>
-                  <path d="M15 3H9V1H15V3M19.39 10.74L11 19.13V21.94C6.5 21.44 3 17.63 3 13C3 8.03 7.03 4 12 4C14.12 4 16.07 4.74 17.62 6L19.04 4.56C19.55 5 20 5.46 20.45 5.97L19.03 7.39C19.67 8.19 20.17 9.11 20.5 10.1C20.1 10.21 19.71 10.42 19.39 10.74M13 7H11V14H13V7M13 19.96V22H15.04L21.17 15.88L19.13 13.83L13 19.96M22.85 13.47L21.53 12.15C21.33 11.95 21 11.95 20.81 12.15L19.83 13.13L21.87 15.17L22.85 14.19C23.05 14 23.05 13.67 22.85 13.47Z" />
-                </svg>
-              </button>
-              {showMenu && (
-                <DropDownMenu
-                  timeChangeHandler={timeChangeHandler}
-                  menuHandler={menuHandler}
-                ></DropDownMenu>
-              )}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    height="34"
+                    width="34"
+                  >
+                    <title>timer-edit</title>
+                    <path d="M15 3H9V1H15V3M19.39 10.74L11 19.13V21.94C6.5 21.44 3 17.63 3 13C3 8.03 7.03 4 12 4C14.12 4 16.07 4.74 17.62 6L19.04 4.56C19.55 5 20 5.46 20.45 5.97L19.03 7.39C19.67 8.19 20.17 9.11 20.5 10.1C20.1 10.21 19.71 10.42 19.39 10.74M13 7H11V14H13V7M13 19.96V22H15.04L21.17 15.88L19.13 13.83L13 19.96M22.85 13.47L21.53 12.15C21.33 11.95 21 11.95 20.81 12.15L19.83 13.13L21.87 15.17L22.85 14.19C23.05 14 23.05 13.67 22.85 13.47Z" />
+                  </svg>
+                </button>
+                {showMenu && (
+                  <DropDownMenu
+                    timeChangeHandler={timeChangeHandler}
+                    menuHandler={menuHandler}
+                  ></DropDownMenu>
+                )}
+              </div>
             </div>
-            {showMenu && (
-              <div
-                className="absolute w-full h-full top-0 left-0 z-20  "
-                onClick={menuHandler}
-              ></div>
-            )}
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
+      {!timerVisibility && showMenu && (
+        <div
+          className="absolute w-full h-full top-0 left-0 z-10  "
+          onClick={menuHandler}
+        ></div>
+      )}
+      {/* timer */}
       {timerVisibility && (
         <Timer
           endTimer={endTimer}
           hour={hours.current}
           minute={minutes.current}
           camra={camra}
+          pause={pause}
         ></Timer>
       )}
-      {timerVisibility && (
+
+      {/* Access Buttons */}
+
+      <div className="flex mt-8">
+        {!timerVisibility && (
+          <div className="w-full flex items-center justify-center">
+            <AccessStart onClick={startButtonHandler}>
+              <img className="p-3" src={StartIcon} alt="" />
+            </AccessStart>
+          </div>
+        )}
+
+        {timerVisibility && (
+          <div className="w-full flex items-center justify-center">
+            <AccessButtons onClick={pauseHandler}>
+              <img
+                className="p-3"
+                src={pause ? ResumeIcon : PauseIcon}
+                alt=""
+              />
+            </AccessButtons>
+          </div>
+        )}
+
+        {timerVisibility && (
+          <div className="w-full flex items-center justify-center">
+            <AccessButtons
+              className="mt-5"
+              text="Reset"
+              onClick={cancelHandler}
+            >
+              <img className="p-3" src={ResetIcon} alt="" />
+            </AccessButtons>
+          </div>
+        )}
+
         <div className="w-full flex items-center justify-center">
-          <Button text="Reset" onClick={cancelHandler}></Button>
-        </div>
-      )}
-      <div className="w-full flex items-center justify-center">
-        <div
-          onClick={camraHandler}
-          className="text-slate-50 text-4xl border border-[#156669] bg-[#156669] px-4 py-2 rounded-lg"
-        >
-          <img className={`h-16`} src={camra ? showVideo : noVideo}></img>
+          <AccessButtons onClick={camraHandler} className="">
+            <img className="p-3" src={camra ? showVideo : noVideo}></img>
+          </AccessButtons>
         </div>
       </div>
     </div>

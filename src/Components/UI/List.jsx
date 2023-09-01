@@ -11,8 +11,8 @@ const List = ({ onClick, text, menuHandler }) => {
     <>
       <li onClick={onClickHandler} className="nav__submenu-item font-[3rem]  ">
         <div
-          className="flex m-2  px-5 text-3xl  text-gray-400 rounded-md hover:bg-gray-100
-  hover:text-black cursor-pointer "
+          className="flex m-2  px-8 text-3xl font-bold text-gray-400 rounded-md hover:bg-bgl
+  hover:text-white cursor-pointer "
         >
           {text}
         </div>
