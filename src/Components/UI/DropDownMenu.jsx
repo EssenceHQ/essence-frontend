@@ -4,7 +4,7 @@ import List from "./List";
 const timeArray = [10, 20, 30, 60, 120];
 const DropDownMenu = ({ timeChangeHandler, menuHandler }) => {
   return (
-    <ul className="nav__submenu absolute text-[1.2rem] p-1 border-white border-b-[2px]  border-l-[2px]  bg-[#000000] rounded text-black space-y-1 z-50">
+    <ul className="nav__submenu absolute text-[1.2rem] p-1 border-bgl border-b-4  border-r-4  bg-[#000000] rounded text-black space-y-1 z-50">
       {timeArray.map((element, index) => {
         return (
           <List
