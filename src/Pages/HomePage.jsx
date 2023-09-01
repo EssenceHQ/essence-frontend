@@ -4,9 +4,7 @@ import { useState } from "react";
 const HomePage = () => {
   const [showAuth, setShowAuth] = useState(false);
   const showAuthHandler = () => {
-    setShowAuth((state) => {
-      return !state;
-    });
+    setShowAuth((state) => !state);
   };
   return (
     <div>
