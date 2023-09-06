@@ -21,11 +21,11 @@ const SignUp = () => {
     }
   };
   console.log(userCtx.userInfo);
-  const regStyle = register ? "text-red-500" : "text-slate-50";
-  const loginStyle = !register ? "text-red-500" : "text-slate-50";
+  const regStyle = register ? "text-bgl" : "text-slate-50";
+  const loginStyle = !register ? "text-bgl" : "text-slate-50";
   return (
-    <div className="w-full h-full px-12 py-12 gap-4 bg-black flex flex-col items-center justify-center rounded-lg">
-      <div className="flex gap-2   ">
+    <div className="w-full h-full px-16 py-20 gap-12 bg-bgd border border-bgl flex flex-col items-center justify-center rounded-3xl">
+      <div className="flex gap-2 pb-5 ">
         <div className={`${regStyle} text-3xl border-r-2 px-2  border-r-white`}>
           SignUp
         </div>
@@ -33,32 +33,33 @@ const SignUp = () => {
       </div>
       <form onSubmit={onSubmitHandler} className="flex flex-col gap-4">
         {register && (
-          <div className="flex flex-col gap-1">
-            <label className="text-slate-50 text-3xl">Username</label>
+          <div className="flex flex-col">
             <input
               ref={userNameRef}
-              className="text-3xl px-2 py-1"
+              className="text-3xl text-slate-50 placeholder:pl-2 bg-transparent border-2 border-bgl rounded-full px-16 py-6"
+              placeholder="Username"
               type="text"
             ></input>
           </div>
         )}
+
         <div className="flex flex-col">
-          <label className="text-slate-50 text-3xl">Email</label>
           <input
             ref={emailRef}
             type="text"
-            className="text-3xl px-2 py-1"
+            className="text-3xl text-slate-50 placeholder:pl-2 bg-transparent border-2 border-bgl rounded-full px-16 py-6"
+            placeholder="Email"
           ></input>
         </div>
         <div className="flex flex-col">
-          <label className="text-slate-50 text-3xl">Password</label>
           <input
             ref={passwordRef}
             type="password"
-            className="text-3xl px-2 py-1"
+            className="text-3xl text-slate-50 placeholder:pl-2 bg-transparent border-2 border-bgl rounded-full px-16 py-6"
+            placeholder="Password"
           ></input>
         </div>
-        <div className="w-full flex items-center justify-center">
+        <div className="w-full flex items-center justify-center pt-8">
           <Button
             onClick={() => {}}
             text={register ? "SignUp" : "Login"}
@@ -66,14 +67,14 @@ const SignUp = () => {
         </div>
       </form>
       <p className="text-slate-50 text-2xl">
-        Not a member?{" "}
+        Already a member?{" "}
         <button
           onClick={() => {
             setRegister((state) => {
               return !state;
             });
           }}
-          className="text-red-600 text-2xl"
+          className="text-bgl text-2xl"
         >
           {register ? "Login Now" : "SignUp Now"}
         </button>

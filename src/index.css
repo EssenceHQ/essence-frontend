@@ -78,27 +78,7 @@ button:active .icon-btn {
   /* border-radius: 56% 44% 28% 72% / 38% 33% 67% 62% ; */
 }
 
-/* .m-txt{
-  filter: drop-shadow(5px 5px 2px rgb(10, 142, 147));
-} */
-/* .lower-txt {
-  box-shadow:  29px 29px 57px #010a10,
-           -29px -29px 57px #021929;
-} */
 
-/* .upt{
-  -webkit-text-stroke: 1px #7cbebf;
- color: transparent;
- text-shadow:
-     3px 3px 0 #000000,
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-     1px 1px 0 #000;
-} */
-.main-side-txt {
-  /* box-shadow:  5px 5px 0px #b7c5cc; */
-}
 
 .tag {
   backdrop-filter: blur(56px);
@@ -134,8 +114,9 @@ button:active .icon-btn {
   outline-style: solid;
 }
 
-
 .buttonShadow1 {
   box-shadow: rgb(0, 0, 0) 0px 3px 10px;
 }
-
+.bgs3 {
+  filter: drop-shadow(0 0 5rem rgba(77, 77, 77, 0.134));
+}

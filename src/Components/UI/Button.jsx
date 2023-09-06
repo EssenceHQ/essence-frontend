@@ -5,7 +5,7 @@ const Button = ({ onClick, text }) => {
     <div>
       <button
         onClick={onClick}
-        className="text-slate-50 text-4xl border border-[#156669] bg-[#156669] px-4 py-2 rounded-lg"
+        className="text-slate-50 hover:bg-bgl/80 text-3xl border border-[#156669] bg-[#156669] py-2 px-3 rounded-lg"
       >
         {text}
       </button>
