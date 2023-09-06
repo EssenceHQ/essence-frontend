@@ -23,17 +23,17 @@ const AsmrButton = (props) => {
   }, [play]);
 
   const style = play
-    ? "text-slate-50 text-2xl border-4 w-36 h-36 flex items-center justify-center  px-2 py-2 border-[#fff] cursor-pointer  border  bg-[#156669] px-4 py-2 rounded-[50%] "
-    : "text-slate-50 text-2xl  w-36 h-36 flex items-center justify-center  px-2 py-2 border-slate-50 cursor-pointer  bg-[#021420] px-4 py-2 rounded-[50%] bgs";
+    ? "text-slate-50 text-2xl border-2 w-32 h-32 flex items-center justify-center  px-2 py-2 border-bgl cursor-pointer  border  bg-bgl px-4 py-2 rounded-round "
+    : "text-slate-50 text-2xl hover:border-2 hover:border-bgl  w-32 h-32 flex items-center justify-center  px-2 py-2 border-slate-50 cursor-pointer px-4 py-2 rounded-round bgs";
   return (
-    <div className="w-16 rounded-[50%]">
+    <div className="w-16  rounded-round">
       <audio ref={audioRef} loop={true}>
         <source src={props.sound.src} type="audio/mpeg" />
         <p className="text-slate-50 z-30 relative text-lg">
           Your browser does not support the audio element.
         </p>
       </audio>
-      <div className="flex flex-col items-center rounded-[50%]  ">
+      <div className="flex flex-col items-center rounded-round  ">
         <div onClick={handlePlay} className={style}>
           <img
             className="h-[4rem] w-[4rem]"
@@ -45,7 +45,7 @@ const AsmrButton = (props) => {
           {/* <source className="h-[5rem] w-[5rem]" src={props.sound.img} type="image/png" alt="no img" /> */}
         </div>
         <input
-          className="w-36 text-[black]"
+          className="w-28 mt-3 accent-bgl"
           type="range"
           onChange={soundChangeHandler}
         ></input>
