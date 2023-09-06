@@ -21,7 +21,9 @@ export default {
         'round':'50%'
       },
       colors:{
-        'bgl':'#156669'
+        'bgl':'#156669',
+        'bgd':'#021420'
+         
       }
     },
     
