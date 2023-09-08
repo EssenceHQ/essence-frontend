@@ -50,7 +50,7 @@ const Input = () => {
       return !state;
     });
   };
-  const cancelHandler = () => {
+  const cancelHandler = async () => {
     setTimerVisibility(false);
   };
   const submitHandler = (e) => {
