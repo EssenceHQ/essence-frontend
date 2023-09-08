@@ -1,10 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { MemorizedTensorFLow } from "../TensorFlow/TensorFlow";
-import Button from "../UI/Button";
-import AccessButtons from "../UI/AccessButtons";
-import ResumeIcon from "../../assets/Icons/resume.png";
-import PauseIcon from "../../assets/Icons/pause.png";
+import { formatDate } from "../../helper/helper.js";
 
 const timeReducer = (state, action) => {
   if (action.type === "changed") {
@@ -24,6 +21,8 @@ const Timer = ({ hour, minute, endTimer, camra, pause }) => {
     seconds: 0,
     totalTime: hour * 60 * 60 + minute * 60,
   });
+  /** to get the totalTimeSpent on the page */
+  const timeSpent = useRef(0);
   const interval = useRef(null);
   // const [pause, setPause] = useState(false);
 
@@ -33,17 +32,49 @@ const Timer = ({ hour, minute, endTimer, camra, pause }) => {
       type: "changed",
     });
   };
-  const pauseHandler = () => {
-    setPause((state) => {
-      return !state;
-    });
-  };
+
   useEffect(() => {
     if (!pause) {
       interval.current = setInterval(() => {
         totalTimeRef.current = totalTimeRef.current - 1;
+        timeSpent.current++;
+        const todayDate = formatDate();
+        /* to check if the essence is not present in the local storage */
+        if (!localStorage.getItem("essence")) {
+          localStorage.setItem(
+            "essence",
+            JSON.stringify({
+              authId: "fafasdf",
+              date: "2023-09-04T19:56:34.711Z",
+              timeSpent: timeSpent.current,
+            })
+          );
+          /*  */
+        } else if (timeSpent.current % 20 === 0) {
+          const storageData = localStorage.getItem("essence");
+          const parseStorageData = JSON.parse(storageData);
+          const parsedDate = new Date(parseStorageData.date);
+
+          if (todayDate !== parsedDate) {
+            localStorage.setItem(
+              "essence",
+              JSON.stringify({
+                ...parseStorageData,
+                date: todayDate,
+                timeSpent: 0,
+              })
+            );
+          }
+          localStorage.setItem(
+            "essence",
+            JSON.stringify({
+              ...parseStorageData,
+              date: todayDate,
+              timeSpent: parseStorageData.timeSpent + 20,
+            })
+          );
+        }
         if (totalTimeRef.current === 0) {
-          console.log(time.totalTime);
           clearInterval(interval);
           endTimer();
         }
