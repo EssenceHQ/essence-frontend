@@ -1,10 +1,20 @@
 /* eslint-disable react/prop-types */
 import toast from "react-hot-toast";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState, useCallback } from "react";
+import { updateTimeSpent, formatDate } from "../helper/helper.js";
 
 export const authCtx = createContext({
   token: "",
-  userInfo: {},
+
+  userInfo: {
+    userName: "",
+    userId: "",
+    authId: "",
+    stats: [],
+    goals: [],
+    isLoggedIn: false,
+  },
+
   login: () => {},
   logout: () => {},
   register: () => {},
@@ -14,13 +24,16 @@ const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [userInfo, setUserInfo] = useState({
     userName: "",
-    email: "",
+    userId: "",
+    authId: "",
     stats: [],
     goals: [],
+    isLoggedIn: false,
   });
 
   /* registering User */
   const createUserInDb = async (userName, email, authId) => {
+    console.log("createUserInDb working");
     const userData = {
       userName: userName,
       email: email,
@@ -38,15 +51,22 @@ const AuthContextProvider = ({ children }) => {
         }
       );
       const jsonResponse = await res2.json();
+      console.log(jsonResponse);
       if (jsonResponse.error) {
         throw new Error(jsonResponse.error.message);
       }
       if (jsonResponse.code === 1) {
-        return true;
+        return {
+          userName: jsonResponse.data.userName,
+          authId: jsonResponse.data.authId,
+          userId: jsonResponse.data.userId,
+        };
+      } else {
+        return {};
       }
     } catch (error) {
-      console.log(error.message);
-      return false;
+      console.log(error);
+      return {};
     }
   };
 
@@ -76,13 +96,25 @@ const AuthContextProvider = ({ children }) => {
       }
       const data = await response.json();
       setToken(data.localId);
-      const isCreated = await createUserInDb(userName, email, data.localId);
-      if (isCreated) {
+      const userData = await createUserInDb(userName, email, data.localId);
+      if (Object.keys(userData).length > 0) {
+        const { userName, authId, userId } = userData;
         toast.success("Registered Successfully", {
           id: loadingToast,
           className: "text-5xl",
         });
-        setUserInfo({ userName, email, stats: [], goals: [] });
+        localStorage.setItem(
+          "essence",
+          JSON.stringify({
+            authId: authId,
+            timeSpent: 0,
+            date: new Date(),
+            notified: 0,
+          })
+        );
+        setUserInfo((info) => {
+          return { ...info, isLoggedIn: true, userName, authId, userId };
+        });
       } else {
         throw new Error("Unable to create user in DB!");
       }
@@ -109,9 +141,7 @@ const AuthContextProvider = ({ children }) => {
         }
       );
       const jsonResponse = await res2.json();
-      if (jsonResponse.error) {
-        throw new Error(jsonResponse.error.message);
-      }
+
       if (jsonResponse.code === 1) {
         const data = jsonResponse.data;
         return data;
@@ -153,12 +183,23 @@ const AuthContextProvider = ({ children }) => {
       setToken(data.localId);
       const userData = await checkUserInDb(data.localId);
       if (Object.keys(userData).length > 0) {
-        const { userName, email, authId, stats, goals } = userData;
+        const { userName, authId, userId } = userData;
         toast.success("Login Successfully!", {
           id: loadingToast,
           className: "text-5xl",
         });
-        setUserInfo({ userName, email, authId, stats, goals });
+        localStorage.setItem(
+          "essence",
+          JSON.stringify({
+            authId: authId,
+            timeSpent: 0,
+            date: new Date(),
+            notified: 0,
+          })
+        );
+        setUserInfo((info) => {
+          return { ...info, isLoggedIn: true, userName, authId, userId };
+        });
       } else {
         throw new Error("Unable to find user info!");
       }
@@ -169,7 +210,17 @@ const AuthContextProvider = ({ children }) => {
   };
   const logout = () => {
     setToken("");
-    setUserInfo({ userName: "", email: "", stats: [], goals: [] });
+    // to remove the user info from localstorage
+    localStorage.removeItem("essence");
+
+    setUserInfo({
+      userName: "",
+      userId: "",
+      authId: "",
+      isLoggedIn: false,
+      stats: [],
+      goals: [],
+    });
   };
 
   const storeObj = {
@@ -179,6 +230,64 @@ const AuthContextProvider = ({ children }) => {
     logout,
     register,
   };
+  const isAuthIdValid = useCallback(async () => {
+    const storageData = JSON.parse(localStorage.getItem("essence"));
+    console.log(userInfo.isLoggedIn);
+    if (
+      localStorage.getItem("essence") &&
+      storageData.authId &&
+      !userInfo.isLoggedIn
+    ) {
+      const userLocalAuthId = storageData.authId;
+      //checking if the user is present in the db or not
+      if (userLocalAuthId) {
+        try {
+          const userData = await checkUserInDb(userLocalAuthId);
+          console.log(userData);
+          if (Object.keys(userData).length > 0) {
+            const { userName, authId, userId } = userData;
+
+            setUserInfo((info) => {
+              console.log("setting the user information");
+              return { ...info, isLoggedIn: true, userName, authId, userId };
+            });
+          } else {
+            localStorage.removeItem("essence");
+          }
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+    }
+    // if timeSpent is present then we will update the localstorage
+
+    const storageDateAfterLogin = JSON.parse(localStorage.getItem("essence"));
+
+    if (storageDateAfterLogin?.timeSpent && userInfo.isLoggedIn) {
+      //updating user time from the last login
+      await updateTimeSpent(
+        userInfo.userId,
+        storageData.timeSpent,
+        storageData.notified,
+        storageData.date
+      );
+      const todayDate = formatDate();
+      localStorage.setItem(
+        "essence",
+        JSON.stringify({
+          ...storageDateAfterLogin,
+          date: todayDate,
+          timeSpent: 0,
+          notified: 0,
+        })
+      );
+    }
+  }, [userInfo.isLoggedIn, userInfo.userId]);
+  // check if the user is authenticated or not
+  useEffect(() => {
+    isAuthIdValid();
+    console.log("times");
+  }, [isAuthIdValid]);
   return <authCtx.Provider value={storeObj}>{children}</authCtx.Provider>;
 };
 

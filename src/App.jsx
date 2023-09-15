@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import DashBoardPage from "./Pages/DashBoardPage";
+import Stats from "./Components/Stats/Stats";
 const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/home"></Navigate> },
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashBoardPage></DashBoardPage>,
+  },
+  {
+    path: "/stats/:id",
+    element: <Stats></Stats>,
   },
 ]);
 function App() {
