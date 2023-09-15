@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useRef, useContext, useState } from "react";
 import Button from "../../UI/Button";
 import { authCtx } from "../../../store/auth-context";
-const SignUp = () => {
+import toast from "react-hot-toast";
+const SignUp = ({ showAuthHandler }) => {
   const [register, setRegister] = useState(true);
   const userNameRef = useRef("");
   const emailRef = useRef("");
@@ -15,9 +17,23 @@ const SignUp = () => {
     const password = passwordRef.current.value;
     if (register) {
       const userName = userNameRef.current.value;
-      userCtx.register({ userName, email, password });
+      if (userName.length === 0) {
+        toast.error("Username is missing", {
+          className: "text-5xl",
+        });
+        return;
+      } else if (email.length === 0) {
+        toast.error("Email is wrong", {
+          className: "text-5xl",
+        });
+      }
+      userCtx.register({ userName, email, password }).then(() => {
+        showAuthHandler();
+      });
     } else {
-      userCtx.login({ email, password });
+      userCtx.login({ email, password }).then(() => {
+        showAuthHandler();
+      });
     }
   };
   console.log(userCtx.userInfo);

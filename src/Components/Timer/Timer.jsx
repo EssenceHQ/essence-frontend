@@ -14,7 +14,7 @@ const timeReducer = (state, action) => {
   }
 };
 
-const Timer = ({ hour, minute, endTimer, camra, pause }) => {
+const Timer = ({ hour, minute, camra, pause, cancelHandler }) => {
   const [time, dispatch] = useReducer(timeReducer, {
     hours: +hour,
     minutes: +minute,
@@ -76,7 +76,7 @@ const Timer = ({ hour, minute, endTimer, camra, pause }) => {
         }
         if (totalTimeRef.current === 0) {
           clearInterval(interval);
-          endTimer();
+          cancelHandler();
         }
         counter();
       }, 1000);

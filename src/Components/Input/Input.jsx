@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Timer from "../Timer/Timer";
 import AccessStart from "../UI/AccessStart";
 import AccessButtons from "../UI/AccessButtons";
@@ -10,7 +10,8 @@ import StartIcon from "../../assets/Icons/start.png";
 import ResetIcon from "../../assets/Icons/reset.png";
 import ResumeIcon from "../../assets/Icons/resume.png";
 import PauseIcon from "../../assets/Icons/pause.png";
-
+import { updateTimeSpent } from "../../helper/helper";
+import { authCtx } from "../../store/auth-context";
 const Input = () => {
   const hoursRef = useRef(0);
   const minutesRef = useRef(0);
@@ -20,6 +21,7 @@ const Input = () => {
   const [timerVisibility, setTimerVisibility] = useState(false);
   const [camra, setCamra] = useState(true);
   const [pause, setPause] = useState(false);
+  const authContext = useContext(authCtx);
 
   const pauseHandler = () => {
     setPause((state) => {
@@ -39,6 +41,7 @@ const Input = () => {
 
   const endTimer = () => {
     return new Promise((res) => {
+      setPause(false);
       setTimerVisibility(() => {
         res();
         return false;
@@ -50,8 +53,39 @@ const Input = () => {
       return !state;
     });
   };
+  const timerPromise = () => {
+    return new Promise((res) => {
+      setTimerVisibility(() => {
+        res();
+        return false;
+      });
+    });
+  };
   const cancelHandler = async () => {
-    setTimerVisibility(false);
+    try {
+      await timerPromise();
+      const storageData = JSON.parse(localStorage.getItem("essence"));
+
+      if (storageData?.timeSpent && authContext.userInfo.isLoggedIn) {
+        //updating user time from the last login
+        await updateTimeSpent(
+          authContext.userInfo.userId,
+          storageData.timeSpent,
+          storageData.notified,
+          storageData.date
+        );
+        localStorage.setItem(
+          "essence",
+          JSON.stringify({
+            ...storageData,
+            timeSpent: 0,
+            notified: 0,
+          })
+        );
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -169,11 +203,11 @@ const Input = () => {
       {/* timer */}
       {timerVisibility && (
         <Timer
-          endTimer={endTimer}
           hour={hours.current}
           minute={minutes.current}
           camra={camra}
           pause={pause}
+          cancelHandler={cancelHandler}
         ></Timer>
       )}
 

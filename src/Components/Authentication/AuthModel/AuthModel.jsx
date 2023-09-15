@@ -21,7 +21,7 @@ const OverLay = ({ showAuthHandler }) => {
           className="absolute top-0 left-0 z-50 w-full h-screen bgs3  bg-[#06060684] flex items-center justify-center"
         ></div>
         <div className="absolute z-[51]">
-          <SignUp></SignUp>
+          <SignUp showAuthHandler={showAuthHandler}></SignUp>
         </div>
       </div>
     </div>

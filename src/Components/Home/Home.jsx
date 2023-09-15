@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 // import github from "../../public/github.svg";
 // import linkedin from "../../public/linkedin.svg";
+import { useContext } from "react";
+import { authCtx } from "../../store/auth-context";
+import Button from "../UI/Button";
 import { BsGithub } from "react-icons/bs";
 import { BsLinkedin } from "react-icons/bs";
 import { BsTwitter } from "react-icons/bs";
@@ -9,8 +12,14 @@ import leftImg from "../../assets/Icons/left-img.png";
 import logo from "../../assets/Icons/logo.png";
 import classes from "./Home.module.css";
 import { BsCheck2Circle } from "react-icons/bs";
-import Button from "../UI/Button";
+
 const Home = ({ showAuthHandler }) => {
+  const authContext = useContext(authCtx);
+  console.log(authContext);
+
+  const logoutHandler = () => {
+    authContext.logout();
+  };
   return (
     <div className={classes.container}>
       <div className="bar flex  items-center justify-between pt-[0rem] mx-[13rem]">
@@ -21,15 +30,25 @@ const Home = ({ showAuthHandler }) => {
           </h1>
         </div>
         <div className="login-bar flex">
-          <h1 className=" text-[#156669] font-[Righteous] cursor-pointer  text-[2rem]">
-            Login
-          </h1>
-          <h1
-            onClick={showAuthHandler}
-            className="border-l-[2px] pl-[2rem] ml-[2rem] cursor-pointer border-[white] text-[#156669] font-[Righteous]  text-[2rem]"
-          >
-            SignUp
-          </h1>
+          {authContext.userInfo.isLoggedIn ? (
+            <Button
+              onClick={logoutHandler}
+              className=" text-[#156669] font-[Righteous] cursor-pointer  text-[2rem]"
+              text={"Logout"}
+            ></Button>
+          ) : (
+            <div>
+              <button className=" text-[#156669] font-[Righteous] cursor-pointer  text-[2rem]">
+                Login
+              </button>
+              <button
+                onClick={showAuthHandler}
+                className="border-l-[2px] pl-[2rem] ml-[2rem] cursor-pointer border-[white] text-[#156669] font-[Righteous]  text-[2rem]"
+              >
+                SignUp
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -94,7 +113,7 @@ const Home = ({ showAuthHandler }) => {
                 to="/dashboard"
               >
                 Get Started
-                <div class="icon-btn py-[2rem] w-[4.1rem]  rounded-[50%] mr-[1rem]  bg-[#a1dacd] absolute flex items-center justify-center">
+                <div className="icon-btn py-[2rem] w-[4.1rem]  rounded-[50%] mr-[1rem]  bg-[#a1dacd] absolute flex items-center justify-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

@@ -4,8 +4,7 @@ export function formatDate() {
   return d;
 }
 
-export const updateTimeSpent = async (timeSpent, notified, date) => {
-  const id = "64f8dbf7e2309736762b7e09";
+export const updateTimeSpent = async (id, timeSpent, notified, date) => {
   const url = `${import.meta.env.VITE_API_END_POINT}/user/${id}`; // Replace this with the real API endpoint
   console.log(id, timeSpent, notified, date);
   const options = {
@@ -26,5 +25,21 @@ export const updateTimeSpent = async (timeSpent, notified, date) => {
   } catch (error) {
     console.log(error.message);
     return error;
+  }
+};
+
+export const getUserStats = async (id) => {
+  const url = `${import.meta.env.VITE_API_END_POINT}/user/${id}`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("No user Found");
+    }
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (err) {
+    return { message: err.message, code: 0 };
   }
 };
