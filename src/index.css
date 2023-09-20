@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Lato:wght@400;700;900&family=Lilita+One&family=Raleway:wght@500;700;900&family=Righteous&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Lato:wght@400;700;900&family=Lilita+One&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Noto+Sans&family=Poppins:ital,wght@0,300;0,400;0,500;1,300&family=Raleway:wght@500;700;900&family=Righteous&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -29,7 +29,6 @@
 }
 
 .icon-btn {
-  background: white;
   margin-left: 1em;
   /* position: absolute;
   display: flex;
@@ -64,13 +63,7 @@ button:active .icon-btn {
   border-radius: 50%;
 }
 
-.img-container {
-  /* background: #021a29; */
-  background: #156669;
-  box-shadow: 29px 29px 57px #010a10, -29px -29px 57px #031e30;
-  /* border-radius: 56% 44% 28% 72% / 38% 33% 67% 62% ; */
-  animation: blob 10s infinite linear alternate;
-}
+
 
 .nav-link {
   background: #021420;
@@ -118,5 +111,46 @@ button:active .icon-btn {
   box-shadow: rgb(0, 0, 0) 0px 3px 10px;
 }
 .bgs3 {
-  filter: drop-shadow(0 0 5rem rgba(77, 77, 77, 0.134));
+  filter: drop-shadow(0 0 5rem rgba(9, 128, 128, 0.134));
+}
+
+.r-img{
+  background: #156669;
+box-shadow:  20px 20px 29px #021420dc,
+             -20px -20px 29px #0a2d3cc4;
+}
+
+/* .left-img img{
+  filter: drop-shadow(0 0 5px rgb(255, 255, 255));
+} */
+
+.img-container{
+  /* background: #021a29; */
+  background: #156669;
+box-shadow:  29px 29px 57px #010a10,
+           -29px -29px 57px #031e30;
+  /* border-radius: 56% 44% 28% 72% / 38% 33% 67% 62% ; */
+  animation: blob 10s infinite linear alternate;
+}
+
+@keyframes blob {
+  0% {
+    border-radius: 56% 44% 28% 72% / 38% 33% 67% 62%;
+  }
+
+  25%{
+      border-radius: 50% ;
+  }
+  50% {
+    border-radius: 68% 32% 83% 17% / 41% 52% 48% 59% ;
+  }
+
+  75% {
+    border-radius: 50%;
+  }
+
+
+  100% {
+    border-radius: 56% 44% 28% 72% / 38% 33% 67% 62%;
+  }
 }
