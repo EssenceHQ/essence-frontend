@@ -60,16 +60,34 @@ const Stats = () => {
     userAndStatHandler();
   }, []);
   return (
-    <div>
+    <div className="bg-bgd h-full text-slate-50">
       <div>{loading && <p>Loading...</p>}</div>
       <div className="text-3xl">
         {!loading && <p>{JSON.stringify(stats)}</p>}
+   
       </div>
-      <div>
+
+      {!loading && (
+    <div>
+      {stats.map((stat, index) => (
+        <p key={index}>Time Spent: {stat.timeSpent}</p>
+      ))}
+    </div>
+  )}
+
+ {!loading && stats.length > 0 ? (
+    <div>
+      <p>Last Time Spent: {stats[stats.length - 1].timeSpent}</p>
+    </div>
+  ) : (
+    <p>No stats available</p>
+  )}
+     {/* dashboard navigation */}
+      {/* <div>
         <Link className="text-3xl" to="/dashboard">
           Dashboard
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };

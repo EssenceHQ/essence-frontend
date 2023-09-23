@@ -6,7 +6,9 @@ export default {
     extend: {
 
       fontSize: {
-        'xxl':'10rem'
+        'xxl':'10rem',
+        'b1':'2rem',
+        'fs2':'14rem'
       },
       fontWeight:{
         'la':'600'
@@ -29,10 +31,6 @@ export default {
         'bght':'#97c0bc'
         
          
-      },
-      fontSize: {
-        'b1':'2rem',
-        'fs2':'14rem'
       }
 
     },
