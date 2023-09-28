@@ -110,6 +110,12 @@ button:active .icon-btn {
 .buttonShadow1 {
   box-shadow: rgb(0, 0, 0) 0px 3px 10px;
 }
+.tabShadow {
+  box-shadow: 29px 29px 57px #010a10, -29px -29px 57px #031e30;
+}
+.tabShadow2 {
+  box-shadow: 29px 29px 57px #010a10, -29px -29px 57px #031e3088;
+}
 .bgs3 {
   filter: drop-shadow(0 0 5rem rgba(9, 128, 128, 0.134));
 }
