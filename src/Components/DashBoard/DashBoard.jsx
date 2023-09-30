@@ -21,7 +21,7 @@ const DashBoard = () => {
       <AsmrPanel></AsmrPanel>
 
       <Link to={`/stats/${userId}`} className="text-slate-50 text-3xl">
-        Stats Page
+        Stats
       </Link>
     </div>
   );
