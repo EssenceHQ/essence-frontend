@@ -110,6 +110,16 @@ button:active .icon-btn {
 .buttonShadow1 {
   box-shadow: rgb(0, 0, 0) 0px 3px 10px;
 }
+.tabShadow {
+  box-shadow: 29px 29px 57px #010a10, -29px -29px 57px #031e30;
+}
+.tabShadow2 {
+  box-shadow: 29px 29px 57px #010a10, -29px -29px 57px #031e3088;
+}
+.tabShadow3 {
+  box-shadow: 2px 2px 57px #010a10, -2px -2px 57px #031e30;
+
+}
 .bgs3 {
   filter: drop-shadow(0 0 5rem rgba(9, 128, 128, 0.134));
 }
@@ -153,4 +163,65 @@ box-shadow:  29px 29px 57px #010a10,
   100% {
     border-radius: 56% 44% 28% 72% / 38% 33% 67% 62%;
   }
+}
+
+.recharts-legend-item-text {
+  font-size: 1rem;
+  font-weight: 500;
+
+}
+
+.recharts-tooltip-item{
+  font-size:2.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-top: solid black 2px ;
+  font-weight: 600;
+  color: #156669;
+
+  /* border-radius: 2rem; */
+
+  
+}
+.recharts-tooltip-label{
+  font-size: 2rem;
+  color: #156669;
+  background-color: #000;
+  font-weight: 700;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  box-shadow: 2px 2px 5px #010a10, -2px -2px 5px #031e30;
+
+  
+
+
+}
+
+.recharts-tooltip{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.recharts-default-tooltip{
+  border-radius: 2rem;
+  display: flex;
+  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  
+}
+
+.recharts-rectangle{
+  border-top-right-radius: 50%;
+  margin: 0%;
+  padding: 0%;
 }
