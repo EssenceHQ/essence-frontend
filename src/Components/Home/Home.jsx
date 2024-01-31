@@ -26,17 +26,8 @@ const Home = ({ showAuthHandler }) => {
     <div className="h-[100vh] relative overflow-hidden flex flex-col justify-around w-full bg-bgd home">
 
 
-      {/* <div className="bgIcon left-[24.3rem] top-[43.75rem] absolute">
-           <img className="w-[10rem]" src={bgIcon2} alt="" />
-      </div> */}
 
-      {/* <div className="bgIcon left-[70rem] bottom-[55rem] absolute">
-           <img className="w-36" src={bgIcon2} alt="" />
-      </div> */}
-
-
-
-      <div className="bar flex  items-center justify-between mx-48">
+      <div className="bar flex  items-center justify-between max-lg:mx-20 mx-48">
         <div className="bar flex  items-center justify-center ">
           <img className="w-10 h-10" src={logo} alt="" />
           <h1 className="logo-txt text-bgl font-[Righteous]  text-b1">
@@ -52,12 +43,12 @@ const Home = ({ showAuthHandler }) => {
             ></Button>
           ) : (
             <div>
-              <button className=" text-bgl font-[Righteous] cursor-pointer  text-b1">
+              <button className=" text-bgl max-lg:hidden font-[Righteous] cursor-pointer  text-b1">
                 Login
               </button>
               <button
                 onClick={showAuthHandler}
-                className="border-l-2 pl-8 ml-8 cursor-pointer border-slate-50 text-bgl font-[Righteous]  text-b1"
+                className="border-l-2 pl-8 ml-8 cursor-pointer max-lg:border-none border-slate-50 text-bgl font-[Righteous]  text-b1"
               >
                 SignUp
               </button>
@@ -76,15 +67,15 @@ const Home = ({ showAuthHandler }) => {
         <Button text="SignUp" onClick={showAuthHandler}></Button>
       </div> */}
 
-      <div className="hero-content flex justify-between mx-48">
-        <div className="left flex flex-col justify-center">
-          <div className="upper-txt text-bgl font-[Montserrat]  font-extrabold text-5xl tracking-wide leading-[4rem] ">
-            <h1 className="w-x upt">
+      <div className="hero-content flex justify-between max-lg:justify-center max-lg:flex-col max-lg:mx-20  mx-48">
+        <div className="left flex flex-col max-lg:w-full justify-center max-lg:items-center">
+          <div className="upper-txt text-bgl font-[Montserrat]  font-extrabold text-5xl max-md:text-4xl max-sm:text-[1.1rem] tracking-wide leading-[4rem] ">
+            <h1 className="w-x  max-lg:w-full ">
               Say goodbye to neck and back pain with{" "}
             </h1>
           </div>
           <div className="main-txt">
-            <h1 className="m-txt h-th text-bght font-[Noto+Sans] ml-[-.5rem] font-black text-fs2 leading-[12rem] ">
+            <h1 className="m-txt h-th text-bght font-[Noto+Sans] ml-[-.5rem] max-lg:m-0 max-lg:h-auto font-black text-fs2 max-lg:text-[15rem] max-md:text-[12rem] max-sm:text-[7rem] leading-[12rem] ">
               ESSENCE{" "}
             </h1>
             {/* <div className="main-side-txt border-[#156669] w-[25rem] h-[5rem] border-b-[.5rem] border-r-[.5rem] ml-[40rem]">
@@ -119,7 +110,7 @@ const Home = ({ showAuthHandler }) => {
           </div>
         </div>
 
-        <div className="right flex flex-col">
+        <div className="right max-lg:hidden flex flex-col">
         
        <div className="right mr-40 flex flex-col">
              {/* <div className=" absolute rounded-full top-[-1rem] right-[50rem] rotate-[-45deg] h-[60rem] w-[10rem] bg-transparent border-4 border-[#0e948d8a]"></div> */}
@@ -157,7 +148,7 @@ const Home = ({ showAuthHandler }) => {
             </a>{" "}
           </li>
         </ul> */}
-        <ul className="icons flex gap-10 ml-4 items-center justify-center">
+        <ul className="icons flex gap-10 ml-4 max-lg:w-full items-center justify-center">
           <li>
             {" "}
             <a href="">
@@ -177,7 +168,7 @@ const Home = ({ showAuthHandler }) => {
             </a>{" "}
           </li>
         </ul>
-        <div>
+        <div className="max-lg:hidden" >
           <h1 className="text-3xl flex items-center font-[Noto+Sans] font-bold px-4 tag">
             Made with<AiTwotoneThunderbolt className="w-10 h-12 pl-1 text-bgl"/>
           </h1>
