@@ -40,7 +40,7 @@ const SignUp = ({ showAuthHandler }) => {
   const regStyle = register ? "text-bgl" : "text-slate-50";
   const loginStyle = !register ? "text-bgl" : "text-slate-50";
   return (
-    <div className="w-full h-full px-16 py-20 gap-12 bg-bgd border border-bgl flex flex-col items-center justify-center rounded-3xl">
+    <div className="w-full h-full  max-md:py-14 px-16 py-20 gap-12 bg-bgd border border-bgl flex flex-col items-center justify-center rounded-3xl">
       <div className="flex gap-2 pb-5 ">
         <div className={`${regStyle} text-3xl border-r-2 px-2  border-r-white`}>
           SignUp
@@ -52,7 +52,7 @@ const SignUp = ({ showAuthHandler }) => {
           <div className="flex flex-col">
             <input
               ref={userNameRef}
-              className="text-3xl text-slate-50 placeholder:pl-2 bg-transparent border-2 border-bgl rounded-full px-16 py-6"
+              className="text-3xl text-slate-50 placeholder:pl-2 bg-transparent border-2 border-bgl rounded-full px-16 py-6 max-md:text-2xl"
               placeholder="Username"
               type="text"
             ></input>
@@ -63,7 +63,7 @@ const SignUp = ({ showAuthHandler }) => {
           <input
             ref={emailRef}
             type="text"
-            className="text-3xl text-slate-50 placeholder:pl-2 bg-transparent border-2 border-bgl rounded-full px-16 py-6"
+            className="text-3xl text-slate-50 placeholder:pl-2 bg-transparent border-2 border-bgl rounded-full px-16 py-6 max-md:text-2xl"
             placeholder="Email"
           ></input>
         </div>
@@ -71,7 +71,7 @@ const SignUp = ({ showAuthHandler }) => {
           <input
             ref={passwordRef}
             type="password"
-            className="text-3xl text-slate-50 placeholder:pl-2 bg-transparent border-2 border-bgl rounded-full px-16 py-6"
+            className="text-3xl text-slate-50 placeholder:pl-2 bg-transparent border-2 border-bgl rounded-full px-16 py-6 max-md:text-2xl"
             placeholder="Password"
           ></input>
         </div>
