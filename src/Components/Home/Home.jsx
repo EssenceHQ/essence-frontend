@@ -23,11 +23,11 @@ const Home = ({ showAuthHandler }) => {
     authContext.logout();
   };
   return (
-    <div className="h-[100vh] relative overflow-hidden flex flex-col justify-around w-full bg-bgd home">
+    <div className="h-[100vh] relative overflow-hidden flex flex-col justify-around max-md:justify-between w-full bg-bgd home">
 
 
 
-      <div className="bar flex  items-center justify-between max-lg:mx-20 mx-48">
+      <div className="bar flex max-md:mt-14 items-center justify-between max-lg:mx-20 mx-48">
         <div className="bar flex  items-center justify-center ">
           <img className="w-10 h-10" src={logo} alt="" />
           <h1 className="logo-txt text-bgl font-[Righteous]  text-b1">
@@ -67,15 +67,15 @@ const Home = ({ showAuthHandler }) => {
         <Button text="SignUp" onClick={showAuthHandler}></Button>
       </div> */}
 
-      <div className="hero-content flex justify-between max-lg:justify-center max-lg:flex-col max-lg:mx-20  mx-48">
+      <div className="hero-content flex justify-between max-lg:justify-center max-lg:flex-col max-lg:mx-10  mx-48">
         <div className="left flex flex-col max-lg:w-full justify-center max-lg:items-center">
-          <div className="upper-txt text-bgl font-[Montserrat]  font-extrabold text-5xl max-md:text-4xl max-sm:text-[1.1rem] tracking-wide leading-[4rem] ">
-            <h1 className="w-x  max-lg:w-full ">
+          <div className="upper-txt text-bgl font-[Montserrat]  font-extrabold text-5xl max-md:text-4xl max-sm:text-[1.3rem] tracking-wide leading-[4rem] ">
+            <h1 className="w-x max-sm: max-lg:w-full ">
               Say goodbye to neck and back pain with{" "}
             </h1>
           </div>
           <div className="main-txt">
-            <h1 className="m-txt h-th text-bght font-[Noto+Sans] ml-[-.5rem] max-lg:m-0 max-lg:h-auto font-black text-fs2 max-lg:text-[15rem] max-md:text-[12rem] max-sm:text-[7rem] leading-[12rem] ">
+            <h1 className="m-txt h-th text-bght font-[Noto+Sans] ml-[-.5rem] max-lg:m-0 max-lg:h-auto font-black text-fs2 max-lg:text-[15rem] max-md:text-[12rem] max-sm:text-[7rem] max-sm:leading-[8rem] leading-[12rem] ">
               ESSENCE{" "}
             </h1>
             {/* <div className="main-side-txt border-[#156669] w-[25rem] h-[5rem] border-b-[.5rem] border-r-[.5rem] ml-[40rem]">
@@ -84,6 +84,14 @@ const Home = ({ showAuthHandler }) => {
               </h1>
             </div> */}
           </div>
+
+
+          {/* hidden tag only for small screen */}
+          <div className="hidden max-lg:block rounded-xl tabShadow4 mt-10  bg-[#00000050] border border-bgl py-5 px-4">
+            <p className="text-center font-[Montserrat] leading-9 text-xl text-slate-200 ">Essence, a health-focused app for developers, uses Tensorflow to track posture, sets daily PC usage targets, awards points for good posture and goal achievement, and offers ambient sounds for a focused work environment.</p>
+          </div>
+
+
           <div className="nav-btn-container mt-10  ">
             <button className="navbtn ">
               <NavLink
@@ -148,22 +156,22 @@ const Home = ({ showAuthHandler }) => {
             </a>{" "}
           </li>
         </ul> */}
-        <ul className="icons flex gap-10 ml-4 max-lg:w-full items-center justify-center">
+        <ul className="icons flex gap-10 ml-4 max-lg:w-full items-center justify-center max-md:mb-14">
           <li>
             {" "}
-            <a href="">
+            <a href="https://www.linkedin.com/company/essencehq" target="_blank">
               <FaLinkedinIn className=" icon w-11 h-11 text-bgl" />
             </a>{" "}
           </li>
           <li>
             {" "}
-            <a href="">
+            <a href="https://github.com/EssenceHQ" target="_blank">
               <BsGithub className="icon w-11 h-11 text-bgl" />
             </a>{" "}
           </li>
           <li>
             {" "}
-            <a href="">
+            <a href="https://twitter.com/parampragyan" target="_blank">
               <BsTwitter className="icon w-11 h-11 text-bgl" />
             </a>{" "}
           </li>
